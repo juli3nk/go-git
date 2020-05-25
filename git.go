@@ -132,6 +132,17 @@ func (g *Git) Clone(path string) error {
 	return nil
 }
 
+func (g *Git) Open() error {
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		return err
+	}
+
+	g.Repository = r
+
+	return nil
+}
+
 func (g *Git) Checkout(ref string) error {
 	w, err := g.Repository.Worktree()
 	if err != nil {
