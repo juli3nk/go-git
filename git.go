@@ -5,13 +5,13 @@ import (
 	"time"
 
 	"golang.org/x/crypto/ssh"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/config"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/plumbing/transport"
-	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
-	gitssh "gopkg.in/src-d/go-git.v4/plumbing/transport/ssh"
+	"github.com/go-git/go-git"
+	"github.com/go-git/go-git/config"
+	"github.com/go-git/go-git/plumbing"
+	"github.com/go-git/go-git/plumbing/object"
+	"github.com/go-git/go-git/plumbing/transport"
+	githttp "github.com/go-git/go-git/plumbing/transport/http"
+	gitssh "github.com/go-git/go-git/plumbing/transport/ssh"
 )
 
 type Git struct {
