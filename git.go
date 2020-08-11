@@ -1,6 +1,7 @@
 package git
 
 import (
+	"fmt"
 	"net/url"
 	"time"
 
@@ -213,10 +214,35 @@ func (g *Git) Commit(msg string) error {
 	return nil
 }
 
-func (g *Git) Push(remoteName string) error {
+func (g *Git) CreateTag(tag, msg string) error {
+	h, err := g.Repository.Head()
+	if err != nil {
+		return err
+	}
+
+	author := g.Config.User
+	author.When = time.Now()
+
+	opt := git.CreateTagOptions{
+		Tagger:  &author,
+		Message: msg,
+	}
+
+	_, err = g.Repository.CreateTag(tag, h.Hash(), &opt)
+
+	return err
+}
+
+func (g *Git) Push(remoteName, tag string, force bool) error {
 	opt := git.PushOptions{
 		RemoteName: remoteName,
 		Auth:       g.Config.Auth,
+		Force:      force,
+	}
+
+	if len(tag) > 0 {
+		refs := fmt.Sprintf("refs/tags/%s:refs/tags/%s", tag, tag)
+		opt.RefSpecs = []config.RefSpec{config.RefSpec(refs)}
 	}
 
 	err := g.Repository.Push(&opt)
