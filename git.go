@@ -5,8 +5,6 @@ import (
 
 	"golang.org/x/crypto/ssh"
 	"github.com/go-git/go-git"
-	"github.com/go-git/go-git/config"
-	"github.com/go-git/go-git/plumbing"
 	"github.com/go-git/go-git/plumbing/object"
 	"github.com/go-git/go-git/plumbing/transport"
 	githttp "github.com/go-git/go-git/plumbing/transport/http"
@@ -16,6 +14,7 @@ import (
 type Git struct {
 	URL        string
 	Config     Config
+	Remote     *git.Remote
 	Repository *git.Repository
 }
 
